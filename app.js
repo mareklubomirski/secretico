@@ -58,7 +58,7 @@ passport.deserializeUser((id, done) => {
 passport.use(new GoogleStrategy({
   clientID: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  callbackURL: "https://desolate-springs-49176.herokuapp.com/auth/google/secrets"
+  callbackURL: process.env.GOOGLE_CALLBACK,
 },
 (accessToken, refreshToken, profile, cb) => {
   console.log(profile);
@@ -71,7 +71,7 @@ passport.use(new GoogleStrategy({
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_CLIENT_ID,
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-  callbackURL: "https://desolate-springs-49176.herokuapp.com/auth/facebook/secrets",
+  callbackURL: process.env.FACEBOOK_CALLBACK,
 },
 (accessToken, refreshToken, profile, done) => {
   console.log(profile);
