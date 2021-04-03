@@ -9,7 +9,6 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 const FacebookStrategy = require("passport-facebook");
 
-
 const app = express();
 
 app.use(express.static("public"));
@@ -27,7 +26,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@clustersecret.vckbd.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
