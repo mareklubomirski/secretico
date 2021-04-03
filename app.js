@@ -26,7 +26,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb+srv://gude:2U1OfNoY2F4ketDo@clustersecret.vckbd.mongodb.net/userDB", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.set("useCreateIndex", true);
 
 const userSchema = new mongoose.Schema ({
@@ -73,10 +73,10 @@ passport.use(new FacebookStrategy({
   clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
   callbackURL: "https://desolate-springs-49176.herokuapp.com/auth/facebook/secrets",
 },
-(accessToken, refreshToken, profile, cb) => {
+(accessToken, refreshToken, profile, done) => {
   console.log(profile);
   User.findOrCreate({ facebookId: profile.id }, (err, user) => {
-    cb(err, user);
+    done(err, user);
   });
 }
 ));
