@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const FacebookStrategy = require("passport-facebook");
 
 const app = express();
@@ -148,22 +148,7 @@ app.post("/submit", async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-  // const submittedSecret = req.body.secret;
-
-  // console.log(req.user.id);
-
-  // User.findById(req.user.id, (err, foundUser) => {
-  //   if (err) {
-  //     console.log(err);
-  //   } else {
-  //     if (foundUser) {
-  //       foundUser.secret = submittedSecret;
-  //       foundUser.save( () => {
-  //         res.redirect("/secrets");
-  //       });
-  //     }
-  //   }
-  // });
+ 
 });
 
 app.post("/register", (req, res) => {
