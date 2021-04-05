@@ -32,7 +32,7 @@ mongoose.set("useCreateIndex", true);
 const userSchema = new mongoose.Schema ({
   email: String,
   password: String,
-  secret: String,
+  secret: Array,
   googleId: String,
   facebookId: String
 });
@@ -141,23 +141,29 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
-app.post("/submit", (req, res) => {
-  const submittedSecret = req.body.secret;
+app.post("/submit", async (req, res) => {
+  try {
+    await User.findOneAndUpdate({_id: req.user.id}, {$push: { secret: req.body.secret }});
+    res.redirect("/secrets");
+  } catch (error) {
+    console.log(error);
+  }
+  // const submittedSecret = req.body.secret;
 
-  console.log(req.user.id);
+  // console.log(req.user.id);
 
-  User.findById(req.user.id, (err, foundUser) => {
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        foundUser.secret = submittedSecret;
-        foundUser.save( () => {
-          res.redirect("/secrets");
-        });
-      }
-    }
-  });
+  // User.findById(req.user.id, (err, foundUser) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     if (foundUser) {
+  //       foundUser.secret = submittedSecret;
+  //       foundUser.save( () => {
+  //         res.redirect("/secrets");
+  //       });
+  //     }
+  //   }
+  // });
 });
 
 app.post("/register", (req, res) => {
